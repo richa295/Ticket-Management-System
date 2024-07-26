@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Ticket</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>TICKET MANAGEMENT SYSTEM</h1>
+        <form id="ticketForm">
+            <label for="coachType">Coach Type:</label>
+            <select id="coachType" name="coachType">
+                <option value="AC">AC</option>
+                <option value="Sleeper">Sleeper</option>
+                <option value="2S">2S</option>
+            </select>
+
+            <label for="fromLocation">From Location:</label>
+            <input type="text" id="fromLocation" name="fromLocation" required>
+
+            <label for="toLocation">To Location:</label>
+            <input type="text" id="toLocation" name="toLocation" required>
+
+            <label for="bookingDate">Booking Date:</label>
+            <input type="date" id="bookingDate" name="bookingDate" required>
+
+            <button type="submit">Next</button>
+        </form>
+        <div id="fareDisplay">Fare: 0 (including GST)</div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ticketForm = document.getElementById('ticketForm');
+            ticketForm.addEventListener('change', calculateFare);
+            ticketForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(ticketForm);
+                const formObject = {};
+                formData.forEach((value, key) => {
+                    formObject[key] = value;
+                });
+
+                const fare = calculateFare();
+                formObject['fare'] = fare;
+
+                const queryString = Object.keys(formObject)
+                    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(formObject[key])}`)
+                    .join('&');
+
+                window.location.href = `passengerDetails.html?${queryString}`;
+            });
+
+            function calculateFare() {
+                const coachType = document.getElementById('coachType').value;
+                let fare = 0;
+
+                switch (coachType) {
+                    case 'AC':
+                        fare = 1000;
+                        break;
+                    case 'Sleeper':
+                        fare = 400;
+                        break;
+                    case '2S':
+                        fare = 240;
+                        break;
+                    default:
+                        fare = 0;
+                        break;
+                }
+
+                const fareDisplay = document.getElementById('fareDisplay');
+                fareDisplay.textContent = `Fare: ${fare} (including GST)`;
+                return fare;
+            }
+        });
+    </script>
+</body>
+</html>

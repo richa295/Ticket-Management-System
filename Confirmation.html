@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Booking Confirmation</h1>
+        <p id="confirmationMessage"></p>
+        <button onclick="goHome()">Go to Home</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookingData = Object.fromEntries(urlParams.entries());
+
+            const confirmationMessage = `
+                <strong>Thank you for your booking!</strong><br>
+                Booking Details:<br>
+                Coach Type: ${bookingData.coachType}<br>
+                From: ${bookingData.fromLocation}<br>
+                To: ${bookingData.toLocation}<br>
+                Date: ${bookingData.bookingDate}<br>
+                Passenger Name: ${bookingData.passengerName}<br>
+                Passenger Age: ${bookingData.passengerAge}<br>
+                Passenger Gender: ${bookingData.passengerGender}<br>
+                Fare: ${bookingData.fare}<br>
+            `;
+            document.getElementById('confirmationMessage').innerHTML = confirmationMessage;
+
+            const bookingHistory = JSON.parse(localStorage.getItem('bookingHistory')) || [];
+            bookingHistory.push(bookingData);
+            localStorage.setItem('bookingHistory', JSON.stringify(bookingHistory));
+        });
+
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

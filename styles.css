@@ -1,0 +1,95 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/f2/Rainy_day_at_Railway_station.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+}
+
+.container {
+    width: 450px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+h1, h2 {
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.passenger-details {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: calc(100% - 24px); /* Adjust for padding and border */
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9; /* Light gray background */
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #ff4d4d; /* Red color */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Radio button styles */
+input[type="radio"] {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+/* Additional styles */
+.payment-method {
+    margin-bottom: 20px;
+}
+
+.payment-details {
+    display: none; /* Initially hide payment details */
+}
+
+.payment-details.active {
+    display: block; /* Display payment details when active */
+}

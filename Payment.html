@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Details</h1>
+        <div class="payment-method">
+            <label for="paymentMethod">Select Payment Method:</label>
+            <select id="paymentMethod" name="paymentMethod">
+                <option value="">Select</option>
+                <option value="card">Card Payment</option>
+                <option value="upi">UPI Payment</option>
+            </select>
+        </div>
+        
+        <form id="paymentForm">
+            <div id="cardPayment" class="payment-details">
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber">
+                
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="month" id="expiryDate" name="expiryDate">
+                
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv">
+            </div>
+            
+            <div id="upiPayment" class="payment-details">
+                <label for="upiId">UPI ID:</label>
+                <input type="text" id="upiId" name="upiId">
+            </div>
+            
+            <button type="submit">Pay</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const paymentMethodSelect = document.getElementById('paymentMethod');
+            const cardPaymentDiv = document.getElementById('cardPayment');
+            const upiPaymentDiv = document.getElementById('upiPayment');
+
+            paymentMethodSelect.addEventListener('change', () => {
+                if (paymentMethodSelect.value === 'card') {
+                    cardPaymentDiv.style.display = 'block';
+                    upiPaymentDiv.style.display = 'none';
+                } else if (paymentMethodSelect.value === 'upi') {
+                    cardPaymentDiv.style.display = 'none';
+                    upiPaymentDiv.style.display = 'block';
+                } else {
+                    cardPaymentDiv.style.display = 'none';
+                    upiPaymentDiv.style.display = 'none';
+                }
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookingData = Object.fromEntries(urlParams.entries());
+
+            const paymentForm = document.getElementById('paymentForm');
+            paymentForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(paymentForm);
+                const formObject = { ...bookingData };
+                formData.forEach((value, key) => {
+                    formObject[key] = value;
+                });
+
+                const queryString = Object.keys(formObject)
+                    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(formObject[key])}`)
+                    .join('&');
+
+                window.location.href = `confirmation.html?${queryString}`;
+            });
+        });
+    </script>
+</body>
+</html>
+
+
